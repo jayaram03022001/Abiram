@@ -1,70 +1,113 @@
-package Circularlinkedlist;
+import java.io.*;
+public class LinkedList 
+{
+	Node head;
+	static class Node
+	{
+		int data;
+		Node next;
+		Node(int d)
+		{
+			data =d;
+			next = null; 
+		} 
+} 
+ 
+public static LinkedList insert(LinkedList list, int data) 
+{ 
+	 
+		Node new_node = new Node(data); 
+		new_node.next = null; 
+	 
+		if (list.head == null) 
+{ 
+    			list.head = new_node; 
+		} 
+		else 
+{ 
+    			 
+    			Node last = list.head; 
+    			while (last.next != null) 
+{ 
+        			last = last.next; 
+    			} 
+		 
+    			last.next = new_node; 
+		} 
+		return list; 
+} 
+public static void printList(LinkedList list) 
+{	 
+		Node currNode = list.head; 
+		System.out.print("LinkedList: "); 
+		 
+		while (currNode != null) 
+{ 
+    			 
+    			System.out.print(currNode.data + " "); 
+    		 
+    			currNode = currNode.next; 
+		} 
+		System.out.println(); 
+} 
+public static LinkedList deleteByKey(LinkedList list, int key) 
+{ 
+	 
+		Node currNode = list.head, prev = null; 
+		if (currNode != null && currNode.data == key) 
+{ 
+    			list.head = currNode.next; 
+    			System.out.println(key + " found and deleted"); 
+    			return list; 
+		} 
+		while (currNode != null && currNode.data != key) 
+{ 
+    			prev = currNode; 
+    			currNode = currNode.next; 
+		} 
+		if (currNode != null) 
+{ 
+    			prev.next = currNode.next; 
+    			System.out.println(key + " found and deleted"); 
+		} 
+		if (currNode == null) 
+{ 
+    			System.out.println(key + " not found"); 
+		} 
+		return list; 
+}  
+public static void main(String[] args) 
+{ 
+		
+		LinkedList list = new LinkedList(); 
+	 
+		list = insert(list, 11); 
+		list = insert(list, 12); 
+		list = insert(list, 13); 
+		list = insert(list, 14); 
+		list = insert(list, 15); 
+		list = insert(list, 16); 
+		list = insert(list, 17); 
+		list = insert(list, 18); 
+		 
+		printList(list); 
+		 
+		deleteByKey(list, 11); 
+		 
+		printList(list); 
+		 
+		deleteByKey(list, 40); 
+		 
+		printList(list); 
+		 
+		deleteByKey(list, 50); 
+		 
+		printList(list); 
+} 
+ 
 
-public class LinkedList {
-	static class Node 
-	{ 
-		int data; 
-    		Node next; 
-            	Node(int d) 
-    		{ 
-        			data = d; 
-        			next = null; 
-    		} 
-           }
-           Node head; 
-           LinkedList()   
-           { 
-          head = null; 
-         } 
-	    void sortedInsert(Node new_node) 
-	      { 
-    		Node current = head; 
-           if (current == null) 
-    		{ 
-        			new_node.next = new_node; 
-        			head = new_node; 
-		    } 
-        else if (current.data >= new_node.data) 
-    		{ 
-        while (current.next != head) 
-            			current = current.next; 
-		 	current.next = new_node; 
-        			new_node.next = head; 
-        			head = new_node; 
-    		} 
-    		else
-    		{
-          while (current.next != head && current.next.data < new_node.data) 
-            			current = current.next; 
-			new_node.next = current.next; 
-        			current.next = new_node; 
-    		} 
-            }
-           void printList() 
-	       { 
-    		if (head != null) 
-   		    { 
-        			Node temp = head; 
-        			do
-       			{ 
-            			System.out.print(temp.data + " "); 
-            			temp = temp.next; 
-        			}  while (temp != head); 
-    		     } 
-            	}
-            public static void main(String[] args) 
-	        { 
-    		LinkedList list = new LinkedList(); 
-    		int arr[] = new int[] {11, 96, 32, 91, 1, 80,7,15,9,60}; 
-    		Node temp = null; 
-    		for (int i = 0; i < 10; i++) 
-    		{ 
-       			temp = new Node(arr[i]); 
-        			list.sortedInsert(temp); 
-    		} 
-            list.printList(); 
-	        }		 
-            }
+		
+	}
+	
 
-
-
+	

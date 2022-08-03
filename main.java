@@ -1,27 +1,55 @@
-class RotateArray { 
-public void rotate(int[] nums, int k) {
-    		if(k > nums.length) 
-       			k=k%nums.length;
- 		int[] result = new int[nums.length];
- 		for(int i=0; i < k; i++){
-        			result[i] = nums[nums.length-k+i];
- 		}
- 		int j=0;
-    		for(int i=k; i<nums.length; i++){
-        			result[i] = nums[j];
-              j++;
-    		}
- 		System.arraycopy( result, 0, nums, 0, nums.length );
-        }
+class KthSmallst 
+{ 
+int kthSmallest(int arr[], int l, int r, int k) 
+    	{ 
+  if (k > 0 && k <= r - l + 1) 
+        		{ 
+  int pos = randomPartition(arr, l, r); 
+  if (pos-l == k-1) 
+  return arr[pos]; 
+  if (pos-l > k-1) 
+  return kthSmallest(arr, l, pos-1, k); 
+  return kthSmallest(arr, pos+1, r, k-pos+l-1); 
+        		} 
+        return Integer.MAX_VALUE; 
+    } 
+    void swap(int arr[], int i, int j) 
+    { 
+        int temp = arr[i]; 
+        arr[i] = arr[j]; 
+        arr[j] = temp; 
+    } 
+    int partition(int arr[], int l, int r) 
+    { 
+        int x = arr[r], i = l; 
+        for (int j = l; j <= r - 1; j++) 
+        { 
+            if (arr[j] <= x) 
+            { 
+                swap(arr, i, j); 
+                i++; 
+            } 
         } 
-       public class main {
-	   public static void main(String[] args) {
-	   RotateArray r = new RotateArray();
-       int arr[] = { 21, 32, 43, 44, 55, 66, 77 }; 
-       r.rotate(arr, 5); 
-       for(int i=0;i<arr.length;i++){
-       System.out.print(arr[i]+" ");
-        		}
-	           }
-                }
+        swap(arr, i, r); 
+        return i; 
+    } 
+    int randomPartition(int arr[], int l, int r) 
+    { 
+        int n = r-l+1; 
+        int pivot = (int)(Math.random()) * (n-1); 
+        swap(arr, l + pivot, r); 
+        return partition(arr, l, r); 
+    } 
+}  
+
+    public class main {
+	public static void main(String[] args) {
+		KthSmallst ob = new KthSmallst(); 
+        int arr[] = {1, 3, 5, 7, 9, 11, 13}; 
+        int n = arr.length,k = 5; 
+        System.out.println("K'th smallest element is "+ ob.kthSmallest(arr, 0, n-1, k)); 
+    }
+}
+
+
 
